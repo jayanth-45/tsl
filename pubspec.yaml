@@ -1,0 +1,28 @@
+name: tsl_admin_dashboard
+description: A Flutter admin dashboard for travel booking management
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  go_router: ^12.1.3
+  provider: ^6.1.1
+  intl: ^0.18.1
+  file_picker: ^6.1.1
+  cached_network_image: ^3.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
