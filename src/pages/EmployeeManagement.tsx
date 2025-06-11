@@ -50,27 +50,27 @@ const EmployeeManagement: React.FC<DashboardProps> = ({ onMenuClick }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="p-4">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 space-y-3 sm:space-y-0">
           <div className="flex items-center space-x-2">
-            <MdDashboard onClick={onMenuClick} className='w-5 h-5 cursor-pointer' />
-            <h1 className="text-xl font-semibold text-gray-900">Employee Management</h1>
+            <MdDashboard onClick={onMenuClick} className='w-5 h-5 cursor-pointer text-[#8B6B6B] hover:text-[#7A5A5A]' />
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-900">Employee Management</h1>
           </div>
           
-          <div className="flex space-x-3">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
             <button
               onClick={() => setIsReportsModalOpen(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-[#8B6B6B] text-white rounded-lg hover:bg-[#7A5A5A] transition-colors text-sm sm:text-base"
             >
               <FileText className="w-4 h-4" />
-              <span className="hidden sm:inline">Reports</span>
+              <span>Reports</span>
             </button>
             
             <button
               onClick={() => setIsUploadModalOpen(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-[#8B6B6B] text-white rounded-lg hover:bg-[#7A5A5A] transition-colors"
+              className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-[#8B6B6B] text-white rounded-lg hover:bg-[#7A5A5A] transition-colors text-sm sm:text-base"
             >
               <Upload className="w-4 h-4" />
-              <span className="hidden sm:inline">Upload Employees</span>
+              <span>Upload Employees</span>
             </button>
           </div>
         </div>
@@ -87,8 +87,8 @@ const EmployeeManagement: React.FC<DashboardProps> = ({ onMenuClick }) => {
         />
 
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Departments</h2>
-          <div className="grid grid-cols-3 gap-3">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Departments</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {departments.map((department) => (
               <DepartmentCard
                 key={department.id}
@@ -101,10 +101,10 @@ const EmployeeManagement: React.FC<DashboardProps> = ({ onMenuClick }) => {
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Employees</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 space-y-2 sm:space-y-0">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900">Employees</h2>
             {selectedDepartment && (
-              <span className="text-sm text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+              <span className="text-xs sm:text-sm text-[#8B6B6B] bg-[#8B6B6B] bg-opacity-10 px-2 py-1 rounded-full">
                 Filtered by {selectedDepartment}
               </span>
             )}
@@ -117,11 +117,11 @@ const EmployeeManagement: React.FC<DashboardProps> = ({ onMenuClick }) => {
               ))
             ) : (
               <div className="text-center py-8 text-gray-500">
-                <p>No employees found</p>
+                <p className="text-sm sm:text-base">No employees found</p>
                 {selectedDepartment && (
                   <button
                     onClick={() => setSelectedDepartment(null)}
-                    className="mt-2 text-blue-600 hover:text-blue-800"
+                    className="mt-2 text-[#8B6B6B] hover:text-[#7A5A5A] text-sm sm:text-base"
                   >
                     Clear filter
                   </button>

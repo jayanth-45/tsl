@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, FileText, Building, MapPin } from 'lucide-react';
+import { Download, FileText, Building, MapPin, X } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { mockExpenditureData, mockPlants } from '../../data/mockData';
@@ -163,58 +163,58 @@ const ExpenditureReports: React.FC<ExpenditureReportsProps> = ({ isOpen, onClose
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full">
-        <div className="p-6 border-b border-gray-200">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-gray-900">Generate Expenditure Report</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Generate Expenditure Report</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              ×
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Report Type Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">Report Type</label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <button
                 onClick={() => setReportType('department')}
-                className={`p-4 border rounded-lg flex items-center space-x-3 transition-colors ${
+                className={`p-3 sm:p-4 border rounded-lg flex items-center space-x-2 sm:space-x-3 transition-colors ${
                   reportType === 'department'
                     ? 'border-[#8B6B6B] bg-[#8B6B6B] bg-opacity-10'
                     : 'border-gray-300 hover:border-gray-400'
                 }`}
               >
-                <Building className="w-5 h-5" />
+                <Building className="w-4 h-4 sm:w-5 sm:h-5" />
                 <div className="text-left">
-                  <div className="font-medium">Department-wise</div>
-                  <div className="text-sm text-gray-600">Group by departments</div>
+                  <div className="text-sm sm:text-base font-medium">Department-wise</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Group by departments</div>
                 </div>
               </button>
 
               <button
                 onClick={() => setReportType('plant')}
-                className={`p-4 border rounded-lg flex items-center space-x-3 transition-colors ${
+                className={`p-3 sm:p-4 border rounded-lg flex items-center space-x-2 sm:space-x-3 transition-colors ${
                   reportType === 'plant'
                     ? 'border-[#8B6B6B] bg-[#8B6B6B] bg-opacity-10'
                     : 'border-gray-300 hover:border-gray-400'
                 }`}
               >
-                <MapPin className="w-5 h-5" />
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
                 <div className="text-left">
-                  <div className="font-medium">Plant-wise</div>
-                  <div className="text-sm text-gray-600">Group by plants</div>
+                  <div className="text-sm sm:text-base font-medium">Plant-wise</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Group by plants</div>
                 </div>
               </button>
             </div>
           </div>
 
           {/* Filters */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Filter by Department
@@ -222,7 +222,7 @@ const ExpenditureReports: React.FC<ExpenditureReportsProps> = ({ isOpen, onClose
               <select
                 value={selectedDepartment}
                 onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B6B6B] focus:border-transparent"
+                className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B6B6B] focus:border-transparent text-sm sm:text-base"
               >
                 <option value="all">All Departments</option>
                 {departments.map(dept => (
@@ -238,7 +238,7 @@ const ExpenditureReports: React.FC<ExpenditureReportsProps> = ({ isOpen, onClose
               <select
                 value={selectedPlant}
                 onChange={(e) => setSelectedPlant(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B6B6B] focus:border-transparent"
+                className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B6B6B] focus:border-transparent text-sm sm:text-base"
               >
                 <option value="all">All Plants</option>
                 {plants.map(plant => (
@@ -249,9 +249,9 @@ const ExpenditureReports: React.FC<ExpenditureReportsProps> = ({ isOpen, onClose
           </div>
 
           {/* Preview */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h3 className="font-medium text-gray-900 mb-3">Report Preview</h3>
-            <div className="space-y-2 text-sm text-gray-600">
+          <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+            <h3 className="text-sm sm:text-base font-medium text-gray-900 mb-2 sm:mb-3">Report Preview</h3>
+            <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
               <div>• Report Type: {reportType === 'department' ? 'Department-wise' : 'Plant-wise'}</div>
               <div>• Department Filter: {selectedDepartment === 'all' ? 'All Departments' : selectedDepartment}</div>
               <div>• Plant Filter: {selectedPlant === 'all' ? 'All Plants' : selectedPlant}</div>
@@ -260,16 +260,16 @@ const ExpenditureReports: React.FC<ExpenditureReportsProps> = ({ isOpen, onClose
           </div>
         </div>
 
-        <div className="p-6 border-t border-gray-200 flex justify-end space-x-4">
+        <div className="p-4 sm:p-6 border-t border-gray-200 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full sm:w-auto px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={generatePDF}
-            className="px-4 py-2 bg-[#8B6B6B] text-white rounded-lg hover:bg-[#7A5A5A] transition-colors flex items-center space-x-2"
+            className="w-full sm:w-auto px-4 py-2 bg-[#8B6B6B] text-white rounded-lg hover:bg-[#7A5A5A] transition-colors flex items-center justify-center space-x-2"
           >
             <Download className="w-4 h-4" />
             <span>Generate PDF</span>
