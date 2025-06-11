@@ -1,7 +1,6 @@
 import React from 'react';
-import { User, Mail, Phone } from 'lucide-react';
+import { User, Mail, Phone, UserCheck } from 'lucide-react';
 import { Employee } from '../../types/employee';
-
 
 interface EmployeeCardProps {
   employee: Employee;
@@ -48,6 +47,19 @@ const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee }) => {
               <Phone className="w-3 h-3 mr-2 flex-shrink-0" />
               <span>{employee.phone}</span>
             </div>
+
+            {employee.managerName && (
+              <div className="flex items-center text-xs text-gray-500">
+                <UserCheck className="w-3 h-3 mr-2 flex-shrink-0" />
+                <span>Manager: {employee.managerName}</span>
+              </div>
+            )}
+
+            {employee.plant && (
+              <div className="text-xs text-gray-500">
+                Plant: {employee.plant}
+              </div>
+            )}
             
             <div className="text-xs text-gray-400">
               joined on : {employee.joinedDate}

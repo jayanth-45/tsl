@@ -1,4 +1,4 @@
-import { TravelRequest, Employee } from '../types';
+import { TravelRequest, Employee, Plant, ExpenditureData } from '../types';
 
 export const mockEmployees: Employee[] = [
   {
@@ -7,7 +7,13 @@ export const mockEmployees: Employee[] = [
     empId: 'EMP001',
     department: 'Marketing',
     email: 'john.smith@example.com',
-    phone: '+1 (555) 123-4567'
+    phone: '+1 (555) 123-4567',
+    position: 'Marketing Manager',
+    joinedDate: 'May 18 2025',
+    managerId: null,
+    managerName: null,
+    plant: 'Mumbai Plant',
+    salary: 75000
   },
   {
     id: '2',
@@ -15,15 +21,96 @@ export const mockEmployees: Employee[] = [
     empId: 'EMP002',
     department: 'Sales',
     email: 'sara.johnson@example.com',
-    phone: '+1 (555) 234-5678'
+    phone: '+1 (555) 234-5678',
+    position: 'Sales Manager',
+    joinedDate: 'May 18 2024',
+    managerId: null,
+    managerName: null,
+    plant: 'Delhi Plant',
+    salary: 80000
   },
   {
     id: '3',
-    name: 'Micheal Chage',
+    name: 'Michael Chen',
     empId: 'EMP003',
     department: 'Engineering',
-    email: 'micheal.chage@example.com',
-    phone: '+1 (555) 345-6789'
+    email: 'michael.chen@example.com',
+    phone: '+1 (555) 345-6789',
+    position: 'Lead Developer',
+    joinedDate: 'Jan 15 2024',
+    managerId: '1',
+    managerName: 'John Smith',
+    plant: 'Bangalore Plant',
+    salary: 95000
+  },
+  {
+    id: '4',
+    name: 'Emma Wilson',
+    empId: 'EMP004',
+    department: 'Marketing',
+    email: 'emma.wilson@example.com',
+    phone: '+1 (555) 456-7890',
+    position: 'Marketing Specialist',
+    joinedDate: 'Mar 10 2024',
+    managerId: '1',
+    managerName: 'John Smith',
+    plant: 'Mumbai Plant',
+    salary: 55000
+  },
+  {
+    id: '5',
+    name: 'David Brown',
+    empId: 'EMP005',
+    department: 'Sales',
+    email: 'david.brown@example.com',
+    phone: '+1 (555) 567-8901',
+    position: 'Sales Executive',
+    joinedDate: 'Feb 20 2024',
+    managerId: '2',
+    managerName: 'Sara Johnson',
+    plant: 'Delhi Plant',
+    salary: 45000
+  },
+  {
+    id: '6',
+    name: 'Lisa Anderson',
+    empId: 'EMP006',
+    department: 'Engineering',
+    email: 'lisa.anderson@example.com',
+    phone: '+1 (555) 678-9012',
+    position: 'Software Engineer',
+    joinedDate: 'Apr 05 2024',
+    managerId: '3',
+    managerName: 'Michael Chen',
+    plant: 'Bangalore Plant',
+    salary: 70000
+  }
+];
+
+export const mockPlants: Plant[] = [
+  {
+    id: '1',
+    name: 'Mumbai Plant',
+    location: 'Mumbai, Maharashtra',
+    employeeCount: 150
+  },
+  {
+    id: '2',
+    name: 'Delhi Plant',
+    location: 'New Delhi, Delhi',
+    employeeCount: 120
+  },
+  {
+    id: '3',
+    name: 'Bangalore Plant',
+    location: 'Bangalore, Karnataka',
+    employeeCount: 200
+  },
+  {
+    id: '4',
+    name: 'Chennai Plant',
+    location: 'Chennai, Tamil Nadu',
+    employeeCount: 180
   }
 ];
 
@@ -38,7 +125,8 @@ export const mockRequests: TravelRequest[] = [
     budget: 10000,
     type: 'both',
     status: 'pending',
-    createdAt: 'Oct 15-20,2025'
+    createdAt: 'Oct 15-20,2025',
+    actualExpenditure: 8500
   },
   {
     id: '2',
@@ -49,8 +137,9 @@ export const mockRequests: TravelRequest[] = [
     dates: 'Oct 20-25,2025',
     budget: 20000,
     type: 'both',
-    status: 'pending',
-    createdAt: 'Oct 20-25,2025'
+    status: 'completed',
+    createdAt: 'Oct 20-25,2025',
+    actualExpenditure: 18500
   },
   {
     id: '3',
@@ -61,7 +150,47 @@ export const mockRequests: TravelRequest[] = [
     dates: 'Oct 15-20,2025',
     budget: 15000,
     type: 'both',
-    status: 'pending',
-    createdAt: 'Oct 15-20,2025'
+    status: 'completed',
+    createdAt: 'Oct 15-20,2025',
+    actualExpenditure: 14200
+  }
+];
+
+export const mockExpenditureData: ExpenditureData[] = [
+  {
+    department: 'Marketing',
+    plant: 'Mumbai Plant',
+    totalBudget: 150000,
+    actualExpenditure: 125000,
+    pendingAmount: 25000,
+    employeeCount: 25,
+    requestCount: 8
+  },
+  {
+    department: 'Sales',
+    plant: 'Delhi Plant',
+    totalBudget: 200000,
+    actualExpenditure: 180000,
+    pendingAmount: 20000,
+    employeeCount: 30,
+    requestCount: 12
+  },
+  {
+    department: 'Engineering',
+    plant: 'Bangalore Plant',
+    totalBudget: 300000,
+    actualExpenditure: 250000,
+    pendingAmount: 50000,
+    employeeCount: 45,
+    requestCount: 15
+  },
+  {
+    department: 'Marketing',
+    plant: 'Chennai Plant',
+    totalBudget: 120000,
+    actualExpenditure: 95000,
+    pendingAmount: 25000,
+    employeeCount: 20,
+    requestCount: 6
   }
 ];

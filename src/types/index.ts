@@ -5,6 +5,12 @@ export interface Employee {
   department: string;
   email: string;
   phone: string;
+  position?: string;
+  joinedDate?: string;
+  managerId?: string;
+  managerName?: string;
+  plant?: string;
+  salary?: number;
 }
 
 export interface TravelRequest {
@@ -18,6 +24,7 @@ export interface TravelRequest {
   type: 'flight' | 'hotel' | 'both';
   status: 'pending' | 'approved' | 'booking' | 'completed';
   createdAt: string;
+  actualExpenditure?: number;
 }
 
 export interface BookingDetails {
@@ -25,4 +32,21 @@ export interface BookingDetails {
   flightInvoice?: File | null;
   hotelName?: string;
   hotelInvoice?: File | null;
+}
+
+export interface Plant {
+  id: string;
+  name: string;
+  location: string;
+  employeeCount: number;
+}
+
+export interface ExpenditureData {
+  department: string;
+  plant: string;
+  totalBudget: number;
+  actualExpenditure: number;
+  pendingAmount: number;
+  employeeCount: number;
+  requestCount: number;
 }
