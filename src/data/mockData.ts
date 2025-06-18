@@ -1,4 +1,4 @@
-import { TravelRequest, Employee, Plant, ExpenditureData } from '../types';
+import { TravelRequest, Employee, Plant, ExpenditureData, FlightOption } from '../types';
 
 export const mockEmployees: Employee[] = [
   {
@@ -114,6 +114,36 @@ export const mockPlants: Plant[] = [
   }
 ];
 
+export const mockFlightOptions: FlightOption[] = [
+  {
+    id: 'flight1',
+    airline: 'Air India',
+    flightNumber: 'AI 131',
+    price: 8500,
+    departureTime: '06:30',
+    arrivalTime: '09:45',
+    duration: '3h 15m'
+  },
+  {
+    id: 'flight2',
+    airline: 'IndiGo',
+    flightNumber: '6E 463',
+    price: 7200,
+    departureTime: '14:20',
+    arrivalTime: '17:30',
+    duration: '3h 10m'
+  },
+  {
+    id: 'flight3',
+    airline: 'Vistara',
+    flightNumber: 'UK 995',
+    price: 9800,
+    departureTime: '19:15',
+    arrivalTime: '22:25',
+    duration: '3h 10m'
+  }
+];
+
 export const mockRequests: TravelRequest[] = [
   {
     id: '1',
@@ -137,9 +167,10 @@ export const mockRequests: TravelRequest[] = [
     dates: 'Oct 20-25,2025',
     budget: 20000,
     type: 'both',
-    status: 'completed',
+    status: 'flight_options_added',
     createdAt: 'Oct 20-25,2025',
-    actualExpenditure: 18500
+    actualExpenditure: 18500,
+    flightOptions: mockFlightOptions
   },
   {
     id: '3',
@@ -150,9 +181,11 @@ export const mockRequests: TravelRequest[] = [
     dates: 'Oct 15-20,2025',
     budget: 15000,
     type: 'both',
-    status: 'completed',
+    status: 'manager_approved',
     createdAt: 'Oct 15-20,2025',
-    actualExpenditure: 14200
+    actualExpenditure: 14200,
+    flightOptions: mockFlightOptions,
+    selectedFlightId: 'flight2'
   }
 ];
 

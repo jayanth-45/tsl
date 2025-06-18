@@ -13,6 +13,17 @@ export interface Employee {
   salary?: number;
 }
 
+export interface FlightOption {
+  id: string;
+  airline: string;
+  flightNumber: string;
+  price: number;
+  departureTime: string;
+  arrivalTime: string;
+  duration: string;
+  selected?: boolean;
+}
+
 export interface TravelRequest {
   id: string;
   employee: Employee;
@@ -22,9 +33,16 @@ export interface TravelRequest {
   dates: string;
   budget: number;
   type: 'flight' | 'hotel' | 'both';
-  status: 'pending' | 'approved' | 'booking' | 'completed';
+  status: 'pending' | 'flight_options_added' | 'employee_selected' | 'manager_approved' | 'booked' | 'completed';
   createdAt: string;
   actualExpenditure?: number;
+  flightOptions?: FlightOption[];
+  selectedFlightId?: string;
+  bookingConfirmation?: {
+    ticketNumber: string;
+    bookingReference: string;
+    confirmationFile?: File;
+  };
 }
 
 export interface BookingDetails {

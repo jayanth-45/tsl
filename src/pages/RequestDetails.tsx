@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, User, Building2, Calendar, IndianRupee, Plane, Hotel, Phone, Mail } from 'lucide-react';
+import { ArrowLeft, User, Building2, Calendar, IndianRupee, Plane, Hotel, Phone, Mail, Plus, CheckCircle } from 'lucide-react';
 import ProgressSteps from '../components/RequestDetails/ProgressSteps';
 import { mockRequests } from '../data/mockData';
 
@@ -16,10 +16,45 @@ const RequestDetails: React.FC = () => {
   }
 
   const handleContinue = () => {
-    if (currentStep === 2) {
-      navigate(`/request/${id}/booking`);
+    switch (request.status) {
+      case 'pending':
+        navigate(`/request/${id}/flight-options`);
+        break;
+      case 'flight_options_added':
+        // Show flight options for employee selection
+        break;
+      case 'employee_selected':
+        // Waiting for manager approval
+        break;
+      case 'manager_approved':
+        navigate(`/request/${id}/booking-confirmation`);
+        break;
+      case 'booked':
+        navigate(`/request/${id}/booking`);
+        break;
+      default:
+        navigate(`/request/${id}/booking`);
     }
   };
+
+  const getActionButtonText = () => {
+    switch (request.status) {
+      case 'pending':
+        return 'Add Flight Options';
+      case 'flight_options_added':
+        return 'View Flight Options';
+      case 'employee_selected':
+        return 'Waiting for Manager Approval';
+      case 'manager_approved':
+        return 'Book Flight';
+      case 'booked':
+        return 'View Booking Details';
+      default:
+        return 'Continue';
+    }
+  };
+
+  const selectedFlight = request.flightOptions?.find(f => f.id === request.selectedFlightId);
 
   return (
     <div className="p-4 sm:p-6">
@@ -94,6 +129,53 @@ const RequestDetails: React.FC = () => {
         </div>
       </div>
 
+      {/* Flight Options Status */}
+      {request.flightOptions && request.flightOptions.length > 0 && (
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 mb-4 sm:mb-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Flight Options</h2>
+          
+          <div className="space-y-3">
+            {request.flightOptions.map((flight, index) => (
+              <div 
+                key={flight.id} 
+                className={`border rounded-lg p-4 ${
+                  flight.id === request.selectedFlightId 
+                    ? 'border-green-300 bg-green-50' 
+                    : 'border-gray-200'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Plane className="w-4 h-4 text-[#8B6B6B]" />
+                    <div>
+                      <span className="font-semibold">{flight.airline} {flight.flightNumber}</span>
+                      {flight.id === request.selectedFlightId && (
+                        <CheckCircle className="w-4 h-4 text-green-600 inline ml-2" />
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold">₹{flight.price.toLocaleString()}</div>
+                    <div className="text-sm text-gray-600">{flight.departureTime} - {flight.arrivalTime}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {selectedFlight && (
+            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium text-green-800">
+                  Employee selected: {selectedFlight.airline} {selectedFlight.flightNumber}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Travel Details */}
       <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 mb-4 sm:mb-6">
         <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Travel Details</h2>
@@ -139,13 +221,20 @@ const RequestDetails: React.FC = () => {
         </div>
       </div>
 
-      {/* Continue Button */}
+      {/* Action Button */}
       <div className="flex justify-center">
         <button
           onClick={handleContinue}
-          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-[#8B6B6B] text-white rounded-lg font-medium hover:bg-[#7A5A5A] transition-colors"
+          disabled={request.status === 'employee_selected'}
+          className={`w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg font-medium transition-colors flex items-center justify-center space-x-2 ${
+            request.status === 'employee_selected'
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-[#8B6B6B] text-white hover:bg-[#7A5A5A]'
+          }`}
         >
-          Continue
+          {request.status === 'pending' && <Plus className="w-4 h-4" />}
+          {request.status === 'manager_approved' && <Plane className="w-4 h-4" />}
+          <span>{getActionButtonText()}</span>
         </button>
       </div>
     </div>

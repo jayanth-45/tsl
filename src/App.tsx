@@ -8,6 +8,8 @@ import BookingDetails from './pages/BookingDetails';
 import BookingCompleted from './pages/BookingCompleted';
 import EmployeeManagement from './pages/EmployeeManagement';
 import TravelRequests from './pages/TravelRequest';
+import FlightOptionsManagement from './pages/FlightOptionsManagement';
+import BookingConfirmation from './pages/BookingConfirmation';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -33,6 +35,8 @@ function App() {
               <Route path="/pending-requests" element={<TravelRequests onMenuClick={handleMenuClick} />} />
               <Route path="/travel-requests" element={<TravelRequests onMenuClick={handleMenuClick} />} />
               <Route path="/request/:id" element={<RequestDetails />} />
+              <Route path="/request/:id/flight-options" element={<FlightOptionsManagement />} />
+              <Route path="/request/:id/booking-confirmation" element={<BookingConfirmation />} />
               <Route path="/request/:id/booking" element={<BookingDetails />} />
               <Route path="/request/:id/completed" element={<BookingCompleted />} />
               <Route path="/employees" element={<EmployeeManagement onMenuClick={handleMenuClick} />} />
